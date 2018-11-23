@@ -3,9 +3,8 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
   entry: {
-    app: './src/index.jsx'
+    entry: ['@babel/polyfill', './src/entry.js']
   },
   output: {
     filename: '[name].js',
@@ -13,7 +12,10 @@ module.exports = {
   },
   resolve:{
     alias: {
-      SCSS: path.resolve('src/scss')
+      Components: path.resolve('src/js/components/'),
+      SCSS: path.resolve('src/scss'),
+      Utilities: path.resolve('src/js/utilities/index.js'),
+      Views: path.resolve('src/js/views'),
     },
     extensions: ['.js', '.jsx', '.scss']
   },
@@ -28,12 +30,7 @@ module.exports = {
     {
       test: /\.(js|jsx)?$/,
       exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader',
-        options: {
-          presets: ['@babel/preset-env', '@babel/preset-react']
-        }
-      }
+      loader: 'babel-loader'
     },
     {
       test: /\.(scss|css)?$/,

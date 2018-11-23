@@ -360,16 +360,7 @@ Variables
 /* ============
 Variables
 ============ */
-/* ============
-_animations.scss
-============ */
-/* ============
-_breakpoints.scss
-============ */
 
-/* ============
-_colors.scss
-============ */
 /* ============
 Neutral
 ============ */
@@ -380,22 +371,9 @@ Brand
 UI
 ============ */
 /* ============
-_fonts.scss
-============ */
-/* ============
-_functions.scss
-Theme dependent functions
-============ */
-/* ============
 rem()
 Converts px value to rem
 Usage: font-size: rem(16);
-============ */
-/* ============
-_media-queries.scss
-============ */
-/* ============
-_mixins.scss
 ============ */
 /* ============
 background-cover()
@@ -412,13 +390,15 @@ Core Modules
 Core Modules
 ============ */
 /* ============
-_typography.scss
-Type
+Body
 ============ */
 body {
   font-family: "Roboto", sans-serif;
   font-size: 1rem; }
 
+/* ============
+Headers
+============ */
 h1,
 h2,
 h3,
@@ -448,6 +428,9 @@ h5 {
 h6 {
   font-size: 0.875rem; }
 
+/* ============
+Paragraphs and Anchors
+============ */
 a {
   color: black;
   text-decoration: none;
