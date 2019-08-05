@@ -1,4 +1,8 @@
 // Stylesheets
 import 'SCSS/index';
 
-console.log('entry.js init');
+console.log('index.js init');
+
+import utilities from 'Utilities';
+
+console.log(utilities)

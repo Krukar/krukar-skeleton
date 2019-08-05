@@ -1,65 +1,34 @@
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const StyleLintPlugin = require('stylelint-webpack-plugin')
 
 module.exports = {
-  entry: {
-    entry: ['@babel/polyfill', './src/entry.js']
-  },
-  output: {
-    filename: '[name].js',
-    path: __dirname + '/public/js',
-  },
-  resolve:{
-    alias: {
-      Components: path.resolve('src/js/components/'),
-      SCSS: path.resolve('src/scss'),
-      Utilities: path.resolve('src/js/utilities/index.js'),
-      Views: path.resolve('src/js/views'),
+    entry: './src/entry.js',
+    output: {
+        filename: 'entry.js',
+        path: path.resolve(__dirname, 'public/js')
     },
-    extensions: ['.js', '.jsx', '.scss']
-  },
-  module: {
-    rules:[
-    {
-      enforce: 'pre',
-      test: /\.(js|jsx)?$/,
-      exclude: /node_modules/,
-      loader: 'eslint-loader'
+    resolve: {
+        alias: {
+            SCSS: path.resolve('src/scss'),
+            Utilities: path.resolve('src/js/utilities/index.js')
+        },
+        extensions: ['.js', '.scss']
     },
-    {
-      test: /\.(js|jsx)?$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader'
+    module: {
+        rules: [{
+            test: /\.scss$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                "css-loader",
+                "sass-loader"
+            ]
+        }]
     },
-    {
-      test: /\.(scss|css)?$/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-        { loader: 'css-loader' },
-        { loader: 'sass-loader' }
-        ]
-      })
-    },
-    {
-      test: /\.(ttf|eot|svg|woff|woff2)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      use:[
-      { loader: 'file-loader?name=[name].[ext]&outputPath=../css/fonts/&publicPath=/' }
-      ]
-    }
-    ]
-  },
-  plugins: [
-  new ExtractTextPlugin('../css/app.css'),
-  new StyleLintPlugin({
-    configFile: '.stylelintrc',
-    context: 'src/scss',
-    files: '**/*.scss',
-    syntax: 'scss',
-    failOnError: false,
-    quiet: false,
-    fix: false
-  })
-  ]
-}
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '../css/styles.css',
+            chunkFilename: '[id].css',
+            ignoreOrder: false,
+        }),
+    ],
+};
